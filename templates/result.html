@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Flask Image Upload Results</title>
+  </head>
+  <body>
+    <h1>Results for {{ filename }}</h1>
+    <img src="{{ url_for('static', filename='uploads/' + filename) }}" width="200px">
+    <h2>Stylized Image:</h2>
+    <img src="{{ url_for('static', filename='uploads/' + stylized_filename) }}" width="200px">
+  </body>
+</html>

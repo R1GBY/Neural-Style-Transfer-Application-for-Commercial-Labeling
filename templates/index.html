@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Flask Image Upload</title>
+  </head>
+  <body>
+    <h1>Upload an Image</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+      <input type="file" name="file">
+      <input type="submit" value="Upload">
+    </form>
+    <h2>Uploaded Images:</h2>
+    {% for filename in images %}
+      {% if filename.endswith('.jpg') or filename.endswith('.png') %}
+        <img src="{{ url_for('static', filename='uploads/' + filename) }}" width="200px">
+      {% endif %}
+    {% endfor %}
+  </body>
+</html>
