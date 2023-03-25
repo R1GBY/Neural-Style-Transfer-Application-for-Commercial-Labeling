@@ -77,8 +77,10 @@ def upload():
     stylized_filename = 'stylized_image.jpg'
 
     saving_path = 'static/uploads/'
+    oldpwd = os.getcwd()
     os.chdir(saving_path)
     tensor_to_image(stylized_image).save(stylized_filename)
+    os.chdir(oldpwd)
 
     return render_template('result.html', filename=filename, stylized_filename=stylized_filename)
 
