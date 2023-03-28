@@ -80,6 +80,21 @@ def upload():
     oldpwd = os.getcwd()
     os.chdir(saving_path)
     tensor_to_image(stylized_image).save(stylized_filename)
+
+    #merging label and background stylized image
+
+    image1 = Image.open(stylized_filename)
+    image2 = Image.open('sise_etiket_tasarim.png')
+
+    width, height = image2.size
+    image1 = image1.resize((width, height))
+    image2 = image2.resize((width, height))
+
+    merged_image = Image.new('RGB', (width, height), (0, 0, 0))
+    merged_image.paste(image1, (0, 0))
+    merged_image.paste(image2, (0, 0), image2)
+    merged_image.save(stylized_filename)
+
     os.chdir(oldpwd)
 
     return render_template('result.html', filename=filename, stylized_filename=stylized_filename)
