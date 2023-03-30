@@ -1,19 +1,51 @@
-<!DOCTYPE html>
-<html>
+
+<!doctype html>
+<html lang="en">
   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Flask Image Upload</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
   </head>
   <body>
-    <h1>Upload an Image</h1>
-    <form action="/upload" method="post" enctype="multipart/form-data">
-      <input type="file" name="file">
-      <input type="submit" value="Upload">
-    </form>
-    <h2>Uploaded Images:</h2>
-    {% for filename in images %}
-      {% if filename.endswith('.jpg') or filename.endswith('.png') %}
-        <img src="{{ url_for('static', filename='uploads/' + filename) }}" width="200px">
-      {% endif %}
-    {% endfor %}
+    <div class="container text-center">
+        <div class="row align-items-start">
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <h1>Upload an Image</h1>
+                <form action="/upload" method="post" enctype="multipart/form-data">
+                  <input type="file" name="file">
+                  <input type="submit" value="Upload">
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <h1>Uploaded Images:</h1>
+                {% for filename in images %}
+                  {% if filename.endswith('.jpg') or filename.endswith('.png') %}
+                    <img src="{{ url_for('static', filename='uploads/' + filename) }}" width="200px">
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+
+            <div class="card">
+              <div class="card-body">
+                <h1>Result Labels:</h1>
+              </div>
+            </div>
+
+          </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
   </body>
 </html>
