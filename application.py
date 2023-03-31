@@ -14,6 +14,14 @@ app.config['UPLOAD_FOLDER'] = 'static/uploads'
 model_url = 'https://tfhub.dev/google/magenta/arbitrary-image-stylization-v1-256/2'
 model = hub.load(model_url)
 
+def increment_filename(filename):
+    base, ext = os.path.splitext(filename)
+    i = 1
+    while os.path.exists(filename):
+        filename = f"{base}_{i}{ext}"
+        i += 1
+    return filename
+
 ##################################################################################
 #Converting the format that the model (Neural Network) uses to process images to a format that we can visualize
 def tensor_to_image(tensor):
@@ -60,10 +68,12 @@ def upload():
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     file.save(file_path)
 
+    label = request.form['label-design']
+
     max_dim = 512
 
     content_path = file_path
-    style_path = 'static/styles/pirosmani.jpeg'
+    style_path = 'static/styles/van-gogh.jpg'
 
     # Loading in our content and style image
     content_image = load_img(content_path)
@@ -74,7 +84,9 @@ def upload():
     tensor_to_image(stylized_image)
 
     # save the image
-    stylized_filename = 'stylized_image.jpg'
+    #stylized_filename = 'stylized_image.jpg'
+
+    stylized_filename = increment_filename("stylized_image.jpg")
 
     saving_path = 'static/uploads/'
     oldpwd = os.getcwd()
@@ -84,7 +96,7 @@ def upload():
     #merging label and background stylized image
 
     image1 = Image.open(stylized_filename)
-    image2 = Image.open('sise_etiket_tasarim.png')
+    image2 = Image.open(label)
 
     width, height = image2.size
     image1 = image1.resize((width, height))
@@ -95,6 +107,7 @@ def upload():
     merged_image.paste(image2, (0, 0), image2)
     merged_image.save(stylized_filename)
 
+    #turning back to old folder
     os.chdir(oldpwd)
 
     return render_template('result.html', filename=filename, stylized_filename=stylized_filename)
