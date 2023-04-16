@@ -18,8 +18,8 @@
                 <form action="/upload" method="post" enctype="multipart/form-data">
                   <input type="file" name="file" required>
                   <input type="submit" value="Upload">
-                  <h2>Choose a Label</h2>
 
+                  <h2>Choose a Label</h2>
                   {% for filename in images %}
                     {% if filename.startswith('label_design') %}
                     <input type="radio" id="label" name="label-design" value={{filename}} required/>
@@ -29,8 +29,20 @@
 
                     {% endif %}
                   {% endfor %}
+
+                  <h2>Choose a Style</h2>
+                  {% for filename in images %}
+                    {% if filename.startswith('style') %}
+                    <input type="radio" id="style" name="style-image" value={{filename}} required/>
+                      <label for="style">
+                        <img src="{{ url_for('static', filename='styles/' + filename) }}" width="200px">
+                      </label><br>
+
+                    {% endif %}
+                  {% endfor %}
                 </form>
               </div>
+
             </div>
           </div>
 
@@ -39,7 +51,7 @@
               <div class="card-body">
                 <h1>Uploaded Images:</h1>
                 {% for filename in images %}
-                  {% if (filename.endswith('.jpg') or filename.endswith('.png')) and not filename.startswith('stylized_image') and not filename.startswith('label_design') %}
+                  {% if (filename.endswith('.jpg') or filename.endswith('.png')) and not filename.startswith('stylized_image') and not filename.startswith('label_design') and not filename.startswith('style')%}
                     <img src="{{ url_for('static', filename='uploads/' + filename) }}" width="200px">
                   {% endif %}
                 {% endfor %}

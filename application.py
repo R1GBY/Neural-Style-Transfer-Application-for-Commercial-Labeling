@@ -15,12 +15,12 @@ model_url = 'https://tfhub.dev/google/magenta/arbitrary-image-stylization-v1-256
 model = hub.load(model_url)
 
 def increment_filename(filename):
-    base, ext = os.path.splitext(filename)
-    i = 1
-    while os.path.exists(filename):
-        filename = f"{base}_{i}{ext}"
-        i += 1
-    return filename
+  base, ext = os.path.splitext(filename)
+  i = 1
+  while os.path.exists(filename):
+    filename = f"{base}_{i}{ext}"
+    i += 1
+  return filename
 
 ##################################################################################
 #Converting the format that the model (Neural Network) uses to process images to a format that we can visualize
@@ -70,10 +70,13 @@ def upload():
 
     label = request.form['label-design']
 
+    style = request.form['style-image']
+
+
     max_dim = 512
 
     content_path = file_path
-    style_path = 'static/styles/van-gogh.jpg'
+    style_path = 'static/uploads/style_0.jpg'
 
     # Loading in our content and style image
     content_image = load_img(content_path)
