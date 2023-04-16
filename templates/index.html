@@ -35,7 +35,7 @@
                     {% if filename.startswith('style') %}
                     <input type="radio" id="style" name="style-image" value={{filename}} required/>
                       <label for="style">
-                        <img src="{{ url_for('static', filename='styles/' + filename) }}" width="200px">
+                        <img src="{{ url_for('static', filename='uploads/' + filename) }}" width="200px">
                       </label><br>
 
                     {% endif %}
