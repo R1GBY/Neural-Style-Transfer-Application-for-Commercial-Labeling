@@ -71,12 +71,12 @@ def upload():
     label = request.form['label-design']
 
     style = request.form['style-image']
-
+    print(style)
 
     max_dim = 512
 
     content_path = file_path
-    style_path = 'static/uploads/style_0.jpg'
+    style_path = 'static/uploads/' + style
 
     # Loading in our content and style image
     content_image = load_img(content_path)
